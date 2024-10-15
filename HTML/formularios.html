@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Formularios</title>
+</head>
+<body>
+   <form action="">
+    <fieldset>
+        <legend>Información Personal</legend>
+        <br>
+        <label for="nombre">Nombre</label> 
+        <input type="text" id="nombre" name="name">
+        <br>
+        <br>
+        <label for="apellido">Apellido</label> 
+        <input type="text" id="apellido" name="name">
+        <br>
+        <br>
+        <label for="email">E-mail</label> 
+        <input type="email" id="email" name="email"> 
+    </fieldset>
+    <br>
+    <br>
+    <label for="color">Elige un Color</label> 
+    <br>
+    <br>
+    <select name="color" id="color"> 
+        <option value="">Rojo</option>
+        <option value="">Verde</option>
+        <option value="">Azul</option>
+    </select>
+    <br>
+    <br>
+    <input type="radio" name="color" id="red" value="red">
+    <label for="red">rojo</label>
+    <br>
+    <input type="radio" name="color" id="green" value="green">
+    <label for="green">verde</label>
+    <br>
+    <input type="radio" name="color" id="blue" value="blue">
+    <label for="blue">azul</label>
+    <br>
+    <br>
+    <input type="checkbox" name="red" id="red" value="red">
+    <label for="red">rojo</label>
+    <br>
+    <input type="checkbox" name="green" id="green" value="green">
+    <label for="green">verde</label>
+    <br>
+    <input type="checkbox" name="blue" id="blue" value="blue">
+    <label for="blue">azul</label>
+    <br>
+    <br>
+    <label for="color">Escribe un Comentario</label>
+    <br>
+    <br>
+    <textarea name="comentario" id="comentario" cols="50" rows="10">
+    </textarea>
+    <br>
+    <br>
+    <label for="color">Escribe una Contraseña</label>
+    <input type="password" id="pass" name="pass">
+    <br>
+    <br>
+    <input type="file" name="file" id="">
+    <input type="date" name="date" id="">
+    <br>
+    <br>
+    <button type="submit">Enviar</button>
+    <button type="reset">Resetear</button>
+   </form>
+
+</body>
+</html>

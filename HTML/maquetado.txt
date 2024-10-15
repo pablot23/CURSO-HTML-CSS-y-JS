@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Título del documento</title>
+    <!-- La siguiente línea vincula una hoja de estilos (estilos.css) con la página web presente. -->
+    <link rel="stylesheet" href="estilos.css">
+    <!-- La siguiente línea vincula el ícono que aparecerá en la pestaña de los navegadores cuando se visualice nuestra página -->
+    <link rel="shortcut icon" href="/favicon.ico">
+  </head>
+ 
+<body>
+    <header>
+       <!-- Contenidos de la cabecera del sitio -->
+    </header>
+
+  
+    <main>
+      <section>
+         <article>
+             <!-- Contenidos del artículo: texto, imágenes, videos, mapas, etc. -->
+             <!-- Se pueden repetir tantas estructuras con article y section como sean necesarias. -->
+             <p>
+                Este texto de ejemplo está contenido en un párrafo, dentro de la etiqueta body.
+              </p>
+         </article>
+        <article>
+             <!-- Contenidos del artículo: texto, imágenes, videos, mapas, etc. -->
+             <!-- Se pueden repetir tantas estructuras con article y section como sean necesarias. -->
+         </article>
+      </section>
+    </main>
+
+    <aside>
+             <!-- Contenidos del artículo: texto, imágenes, videos, mapas, etc. -->
+    </aside>
+
+    <footer>
+             <!-- Contenidos del pie de página: texto, imágenes, videos, mapas, etc. -->
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+a:link {
+    color : red;
+    }
+    a:visited {
+    color : green;
+    }
+    Otras pseudoclases más usadas:
+    a:hover {
+    Background-color : yellow;
+    Color : blue
+    }
+    a:active {
+    Background-color : yellow;
+    Color : blue
+    }
+    

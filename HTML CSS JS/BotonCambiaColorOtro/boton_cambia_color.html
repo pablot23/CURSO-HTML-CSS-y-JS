@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página con Botón</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <button id="boton">Haz clic aquí</button>
+
+    <script>
+        var boton = document.getElementById("boton");
+        var body = document.body;
+
+        boton.addEventListener("click", function() {
+            var colorAleatorio = generarColorAleatorio();
+            body.style.backgroundColor = colorAleatorio;
+        });
+
+        function generarColorAleatorio() {
+            var letras = "0123456789ABCDEF";
+            var color = "#";
+
+            for (var i = 0; i < 6; i++) {
+                color += letras[Math.floor(Math.random() * 16)];
+            }
+
+            return color;
+        }
+    </script>
+</body>
+</html>
