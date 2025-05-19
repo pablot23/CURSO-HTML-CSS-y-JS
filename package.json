@@ -1,0 +1,24 @@
+{
+  "name": "curso-html-css-y-js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pablot23/CURSO-HTML-CSS-y-JS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pablot23/CURSO-HTML-CSS-y-JS/issues"
+  },
+  "homepage": "https://github.com/pablot23/CURSO-HTML-CSS-y-JS#readme",
+  "description": "",
+  "dependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}

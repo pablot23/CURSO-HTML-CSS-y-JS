@@ -1,8 +1,8 @@
 let respuesta = prompt("¿Aprobaste la Materia? (1 o 2)");
 
-if (respuesta == "1") {
+if (respuesta === "1") {
   console.log("¡Bravo, puedes salir!");
-} else if (respuesta == "2") {
+} else if (respuesta === "2") {
   console.log("¡Lo siento, no puedes salir porque tienes que estudiar!");
 } else {
   console.log("Respuesta inválida");

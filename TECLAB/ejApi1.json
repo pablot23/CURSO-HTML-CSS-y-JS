@@ -1,0 +1,12 @@
+{
+    "usuario":"Alberto",
+    "edad":25,
+    "direccion":"Av Palito 255",
+    "categorias":{
+        "categorias1":"accion",
+        "categorias2":"drama",
+        "categorias3":"aventura",
+        "activo":true
+    }
+
+}

@@ -1,0 +1,23 @@
+{
+    "OrderID": 101,
+    "Address": "Av Cartamarca 123",
+    "Status": "En camino",
+    "Articles": [
+      {
+        "Name": "Pelota de fútbol",
+        "Quantity": 2,
+        "Dangerous": false
+      },
+      {
+        "Name": "Desengrasante con amoniaco",
+        "Quantity": 1,
+        "Dangerous": true
+      },
+      {
+        "Name": "Osito de peluche",
+        "Quantity": 3,
+        "Dangerous": false
+      }
+    ]
+  }
+  
