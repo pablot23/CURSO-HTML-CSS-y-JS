@@ -1,0 +1,22 @@
+.alinear {
+    width: 350px;
+    height: 250px;
+    margin: 5px;
+}
+.contenedor {
+    display: flex;
+    justify-content: center;
+    /*align-items: center;
+    height: 100vh;*/
+}
+@media (max-width: 900px) {
+    .contenedor {
+       flex-direction: column;
+       align-items: center;
+    }
+}
+.alinear{
+    margin-bottom: 10px;
+}
+
+/*PONER TEXTO al LADO de una IMAGEN: https://www.youtube.com/watch?v=L_5aGmq090E*/
