@@ -1,3 +1,6 @@
+const productos = []
+const URL="js/productos.json"; 
+
 const container = document.querySelector("div.container");
 
 const retornarCardHtml = (producto) => {
@@ -30,14 +33,35 @@ const cargarProductos = (array) => {
         activarClickEnBotones();
     }
 };
+const obtenerProductos =  () => {
+    fetch(URL) 
+        .then((response) => response.json())
+        .then((data) => productos.push(...data))
+        .then(() => cargarProductos(productos))  
+}
 
-cargarProductos(productos);
+//cargarProductos(productos);
+obtenerProductos(); // Llamamos a la función para obtener los productos desde el JSON 
 
 
 
 
-
-
+/*const obtenerProductos = () => {
+    fetch(URL)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Error en la respuesta de la red");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            productos.push(...data);
+            cargarProductos(productos);
+        })
+        .catch((error) => {
+            console.error("Error al obtener los productos:", error);
+        });
+}*/
 
 
 
