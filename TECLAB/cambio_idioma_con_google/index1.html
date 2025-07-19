@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Traductor en tiempo real</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    button { padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2 id="titulo">Bienvenido</h2>
+  <p id="descripcion">Gracias por visitar nuestra página.</p>
+  <button onclick="traducir()">Traducir al inglés</button>
+
+  <script>
+    async function traducir() {
+      const textoTitulo = document.getElementById('titulo').textContent;
+      const textoDescripcion = document.getElementById('descripcion').textContent;
+
+      const traducirTexto = async (texto) => {
+        const res = await fetch('https://libretranslate.com/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            q: texto,
+            source: 'es',
+            target: 'en',
+            format: 'text'
+          })
+        });
+        const data = await res.json();
+        return data.translatedText;
+      };
+
+      // Traducir ambos textos
+      const tituloTraducido = await traducirTexto(textoTitulo);
+      const descripcionTraducida = await traducirTexto(textoDescripcion);
+
+      // Actualizar contenido
+      document.getElementById('titulo').textContent = tituloTraducido;
+      document.getElementById('descripcion').textContent = descripcionTraducida;
+    }
+  </script>
+</body>
+</html>

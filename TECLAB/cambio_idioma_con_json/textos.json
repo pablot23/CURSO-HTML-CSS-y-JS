@@ -1,0 +1,12 @@
+{
+  "es": {
+    "titulo": "Bienvenido",
+    "descripcion": "Gracias por visitar nuestra página.",
+    "boton": "Cambiar a Inglés"
+  },
+  "en": {
+    "titulo": "Welcome",
+    "descripcion": "Thank you for visiting our site.",
+    "boton": "Switch to Spanish"
+  }
+}
