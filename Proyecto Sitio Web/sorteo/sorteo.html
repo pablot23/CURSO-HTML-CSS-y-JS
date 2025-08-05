@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Grupos aleatorios</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: rgb(244, 149, 7); }
+    h2 { color: #2c3e50; }
+    ul { list-style-type: none; padding: 0; }
+    li { background: #ecf0f1; margin: 5px; padding: 8px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Grupos aleatorios</h2>
+  <button onclick="crearGrupos()">Generar grupos</button>
+  <div id="grupos"></div>
+
+  <script>
+    const personas = ['Ana', 'Carlos', 'Laura', 'Pedro', 'Lucía', 'Martín', 'Sofía', 'Julián', 'Verónica', 'Tomás', 'Micaela', 'Federico'];
+
+    function crearGrupos() {
+      const copia = [...personas];
+      const grupos = [[], [], [], []];
+
+      // Mezclar aleatoriamente
+      for (let i = copia.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copia[i], copia[j]] = [copia[j], copia[i]];
+      }
+
+      // Repartir en 4 grupos
+      copia.forEach((persona, index) => {
+        grupos[index % 4].push(persona);
+      });
+
+      // Mostrar en pantalla
+      const contenedor = document.getElementById('grupos');
+      contenedor.innerHTML = '';
+      grupos.forEach((grupo, i) => {
+        contenedor.innerHTML += `<h3>Grupo ${i + 1}</h3><ul>${grupo.map(p => `<li>${p}</li>`).join('')}</ul>`;
+      });
+    }
+  </script>
+</body>
+</html>

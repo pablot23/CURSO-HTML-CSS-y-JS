@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Grupos Aleatorios</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: rgb(244, 149, 7); }
+    h2 { color: #2c3e50; }
+    ul { list-style-type: none; padding: 0; }
+    li { background: #ecf0f1; margin: 5px; padding: 8px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Grupos Aleatorios</h2>
+  <button onclick="generar()">Crear Grupos</button>
+  <div id="resultado"></div>
+
+  <script>
+    const nombres = [
+"AGUILERA Morena", "ALMADA Abril", "BARRIONUEVO Camila", "BORGHI Sofía", "CABALLERO Gaspar", "CABRAL Abril", 
+"CARBALLO Juan", "CENTENO Franco", "FERNÁNDEZ Guadalupe", "FERREYRA Dalmiro", "FERREYRA Gerardo",
+"GIMENEZ Milena", "GIOSSO Kiara", "GOMEZ Ema", "GRADAC Axel", "JEAN CHARLES Paul", "LIENDO Pedro",
+"ORTIZ MORAN Valentina", "PARRILLA Facundo", "RODRIGUEZ Morena", "RODRIGUEZ Santino",
+"RUANO CALDERON Gonzalo", "SCALABRINI Sasha", "SOSA Brian", "TORRES Kevin", "TORRES Thiago",
+];
+
+    function generar() {
+      const resultado = document.getElementById("resultado");
+      resultado.innerHTML = "";
+
+      // Mezclar los nombres
+      const mezclados = [...nombres].sort(() => Math.random() - 0.5);
+
+      // Dividir en 4 grupos
+      const grupos = [[], [], [], [], []];
+      mezclados.forEach((nombre, i) => {
+        grupos[i % 5].push(nombre);
+      });
+
+      // Mostrar en HTML
+      grupos.forEach((grupo, i) => {
+        const htmlGrupo = `<h3>Grupo ${i + 1}</h3><ul>${grupo.map(n => `<li>${n}</li>`).join('')}</ul>`;
+        resultado.innerHTML += htmlGrupo;
+      });
+    }
+  </script>
+</body>
+</html>
