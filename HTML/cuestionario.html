@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cuestionario: Circuitos Eléctricos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: grey; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+        .question { display: none; margin-bottom: 20px; }
+        .question.active { display: block; }
+        .navigation { margin-top: 20px; }
+        button { padding: 10px 20px; margin: 5px; }
+        .result { font-weight: bold; font-size: 1.2em; margin-top: 20px; }
+        #recuerda { font-style: italic; color: red; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Cuestionario Interactivo: Circuitos Eléctricos</h1>
+    <p id="recuerda">Recuerda "solo presiona el botón enviar al finalizar el cuestionario"</p>
+    <form id="quizForm">
+        <div class="question active">
+            <p>1. ¿Cuál es la función de una fuente de energía en un circuito eléctrico?</p>
+            <label><input type="radio" name="q1" value="correct"> Proporciona energía eléctrica</label><br>
+            <label><input type="radio" name="q1" value="wrong"> Controla el flujo de corriente</label><br>
+            <label><input type="radio" name="q1" value="wrong"> Conecta componentes</label>
+        </div>
+        <div class="question">
+            <p>2. ¿Qué sucede si se retira el interruptor de un circuito?</p>
+            <label><input type="radio" name="q2" value="wrong"> La corriente aumenta</label><br>
+            <label><input type="radio" name="q2" value="correct"> El circuito queda abierto y no fluye corriente</label><br>
+            <label><input type="radio" name="q2" value="wrong"> Se enciende la lámpara</label>
+        </div>
+        <div class="question">
+            <p>3. ¿Cuál es la diferencia principal entre un circuito en serie y uno en paralelo?</p>
+            <label><input type="radio" name="q3" value="wrong"> En paralelo la corriente es la misma</label><br>
+            <label><input type="radio" name="q3" value="correct"> En serie la corriente es la misma, en paralelo se divide</label><br>
+            <label><input type="radio" name="q3" value="wrong"> En serie hay más ramas</label>
+        </div>
+        <div class="question">
+            <p>4. ¿En un circuito en serie, los componentes están conectados uno tras otro?</p>
+            <label><input type="radio" name="q4" value="correct"> Verdadero</label><br>
+            <label><input type="radio" name="q4" value="wrong"> Falso</label><br>
+            <!--<label><input type="radio" name="q4" value="wrong"> No cambia</label>-->
+        </div>
+        <div class="question">
+            <p>5. ¿Cuál es la fórmula de la Ley de Ohm?</p>
+            <label><input type="radio" name="q5" value="correct"> V = I × R</label><br>
+            <label><input type="radio" name="q5" value="wrong"> R = V × I</label><br>
+            <label><input type="radio" name="q5" value="wrong"> I = V + R</label>
+        </div>
+        <div class="question">
+            <p>6. Si un circuito tiene una resistencia de 10 Ω y una corriente de 2 A, ¿cuál es el voltaje aplicado?</p>
+            <label><input type="radio" name="q6" value="wrong"> 5 V</label><br>
+            <label><input type="radio" name="q6" value="correct"> 20 V</label><br>
+            <label><input type="radio" name="q6" value="wrong"> 12 V</label>
+        </div>
+        <div class="question">
+            <p>7. ¿Cuál es la resistencia total de un circuito en serie con resistencias de 5 Ω, 10 Ω y 15 Ω?</p>
+            <label><input type="radio" name="q7" value="correct"> 30 Ω</label><br>
+            <label><input type="radio" name="q7" value="wrong"> 10 Ω</label><br>
+            <label><input type="radio" name="q7" value="wrong"> 5 Ω</label>
+        </div>
+        <div class="question">
+            <p>8. ¿Cuál es la resistencia total de un circuito en paralelo con resistencias de 6 Ω, 3 Ω y 2 Ω?</p>
+            <label><input type="radio" name="q8" value="correct"> 1 Ω</label><br>
+            <label><input type="radio" name="q8" value="wrong"> 11 Ω</label><br>
+            <label><input type="radio" name="q8" value="wrong"> 6 Ω</label>
+        </div>
+        <div class="question">
+            <p>9. ¿Qué es una protoboard?</p>
+            <label><input type="radio" name="q9" value="correct"> Una placa para construir circuitos sin soldar</label><br>
+            <label><input type="radio" name="q9" value="wrong"> Un tipo de resistencia</label><br>
+            <label><input type="radio" name="q9" value="wrong"> Un interruptor especial</label>
+        </div>
+        <div class="question">
+            <p>10. ¿Cómo se conecta una fuente de energía y una lámpara en una protoboard?</p>
+            <label><input type="radio" name="q10" value="correct"> Conectando los terminales de la lámpara a filas del + y - del protoboard cerrando el circuito</label><br>
+            <label><input type="radio" name="q10" value="wrong"> Solo conectando el positivo</label><br>
+            <label><input type="radio" name="q10" value="wrong"> Usando solo una fila</label>
+        </div>
+        <div class="navigation">
+            <button type="button" onclick="prevQuestion()">Anterior</button>
+            <button type="button" onclick="nextQuestion()">Siguiente</button>
+            <button type="button" onclick="submitQuiz()">Enviar</button>
+        </div>
+    </form>
+    <div id="result" class="result"></div>
+</div>
+<script>
+    let currentQuestion = 0;
+    const questions = document.querySelectorAll('.question');
+
+    function showQuestion(index) {
+        questions.forEach((q, i) => {
+            q.classList.toggle('active', i === index);
+        });
+    }
+
+    function nextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+        }
+    }
+
+    function prevQuestion() {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            showQuestion(currentQuestion);
+        }
+    }
+
+    function submitQuiz() {
+        let correct = 0;
+        for (let i = 1; i <= 10; i++) {
+            const answer = document.querySelector(`input[name="q${i}"]:checked`);
+            if (answer && answer.value === "correct") {
+                correct++;
+            }
+        }
+        const score = (correct / 10) * 100;
+        const resultText = score >= 70 ? `¡Aprobado! Puntaje: ${score}%` : `No aprobado. Puntaje: ${score}%`;
+        document.getElementById('result').textContent = resultText;
+    }
+</script>
+</body>
+</html>

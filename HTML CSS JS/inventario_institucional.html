@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario Institucional</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    input[type="text"], input[type="number"] {
+      width: 100%; padding: 6px; margin: 4px 0;
+    }
+    .btn { padding: 8px 12px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+    .btn:hover { background-color: #218838; }
+  </style>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+
+</head>
+<body>
+
+  <h1>📦 Inventario de Equipos</h1>
+
+<h2>📷 Escanear código QR</h2>
+<div id="qr-reader" style="width:300px;"></div>
+<button onclick="iniciarEscaneo()" class="btn">Activar escáner</button>
+
+
+  <form id="formulario">
+    <label>Marca:</label>
+    <input type="text" id="marca" required>
+
+    <label>Modelo:</label>
+    <input type="text" id="modelo" required>
+
+    <label>Número de serie:</label>
+    <input type="text" id="serie" required>
+
+    <label>Cantidad:</label>
+    <input type="number" id="cantidad" min="1" required>
+
+    <button type="submit" class="btn">Agregar al inventario</button>
+  </form>
+
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>N° de Serie</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    /*const formulario = document.getElementById('formulario');
+    const tabla = document.querySelector('#tabla tbody');
+
+    formulario.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const marca = document.getElementById('marca').value;
+      const modelo = document.getElementById('modelo').value;
+      const serie = document.getElementById('serie').value;
+      const cantidad = document.getElementById('cantidad').value;
+
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>${marca}</td>
+        <td>${modelo}</td>
+        <td>${serie}</td>
+        <td>${cantidad}</td>
+      `;
+
+      tabla.appendChild(fila);
+      formulario.reset();
+    });*/
+    const formulario = document.getElementById('formulario');
+  const tabla = document.querySelector('#tabla tbody');
+
+  // 🔁 Cargar inventario guardado al iniciar
+  window.addEventListener('load', () => {
+    const inventarioGuardado = JSON.parse(localStorage.getItem('inventario')) || [];
+    inventarioGuardado.forEach(producto => agregarFila(producto));
+  });
+
+  // 🧩 Función para agregar fila a la tabla
+  function agregarFila(producto) {
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+      <td>${producto.marca}</td>
+      <td>${producto.modelo}</td>
+      <td>${producto.serie}</td>
+      <td>${producto.cantidad}</td>
+    `;
+    tabla.appendChild(fila);
+  }
+
+  // 📝 Guardar nuevo producto
+  formulario.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const producto = {
+      marca: document.getElementById('marca').value,
+      modelo: document.getElementById('modelo').value,
+      serie: document.getElementById('serie').value,
+      cantidad: document.getElementById('cantidad').value
+    };
+
+    // Guardar en localStorage
+    const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
+    inventario.push(producto);
+    localStorage.setItem('inventario', JSON.stringify(inventario));
+
+    agregarFila(producto);
+    formulario.reset();
+  });
+  
+  let escanerActivo = false;
+
+  function iniciarEscaneo() {
+    if (escanerActivo) return;
+
+    escanerActivo = true;
+    const qrReader = new Html5Qrcode("qr-reader");
+
+    qrReader.start(
+      { facingMode: "environment" },
+      {
+        fps: 10,
+        qrbox: 250
+      },
+      qrCodeMessage => {
+        console.log("Código escaneado:", qrCodeMessage);
+        document.getElementById("serie").value = qrCodeMessage;
+        qrReader.stop().then(() => {
+          escanerActivo = false;
+          document.getElementById("qr-reader").innerHTML = "";
+        });
+      },
+      errorMessage => {
+        // Podés mostrar errores si querés
+      }
+    ).catch(err => {
+      console.error("Error al iniciar escáner:", err);
+    });
+  }
+  </script>
+
+</body>
+</html>

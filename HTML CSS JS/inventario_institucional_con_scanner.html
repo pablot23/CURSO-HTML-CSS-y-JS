@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario con Escáner</title>
+  <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    input, button { padding: 8px; margin: 5px 0; width: 100%; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background-color: #f2f2f2; }
+    .btn { background-color: #007bff; color: white; border: none; cursor: pointer; }
+    .btn:hover { background-color: #0056b3; }
+    #scanner-container { width: 100%; max-width: 400px; margin-top: 20px; }
+  </style>
+  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+</head>
+<body>
+
+  <h1>📦 Inventario de Equipos</h1>
+
+  <button onclick="iniciarEscaner()" class="btn">Activar escáner de código de barras</button>
+  <div id="scanner-container"></div>
+
+  <form id="formulario">
+    <label>Marca:</label>
+    <input type="text" id="marca" required>
+
+    <label>Modelo:</label>
+    <input type="text" id="modelo" required>
+
+    <label>Número de serie:</label>
+    <input type="text" id="serie" required>
+
+    <label>Cantidad:</label>
+    <input type="number" id="cantidad" min="1" required>
+
+    <button type="submit" class="btn">Agregar al inventario</button>
+  </form>
+
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>N° de Serie</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+<button onclick="exportarCSV()" class="btn">📤 Exportar a CSV</button>
+<button onclick="exportarExcel()" class="btn">📤 Exportar a Excel</button>
+
+
+  <script>
+    const formulario = document.getElementById('formulario');
+    const tabla = document.querySelector('#tabla tbody');
+
+    // Cargar inventario desde localStorage
+    window.addEventListener('load', () => {
+      const inventarioGuardado = JSON.parse(localStorage.getItem('inventario')) || [];
+      inventarioGuardado.forEach(producto => agregarFila(producto));
+    });
+
+    // Agregar fila a la tabla
+    function agregarFila(producto) {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>${producto.marca}</td>
+        <td>${producto.modelo}</td>
+        <td>${producto.serie}</td>
+        <td>${producto.cantidad}</td>
+      `;
+      tabla.appendChild(fila);
+    }
+
+    // Guardar nuevo producto
+    formulario.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const producto = {
+        marca: document.getElementById('marca').value,
+        modelo: document.getElementById('modelo').value,
+        serie: document.getElementById('serie').value,
+        cantidad: document.getElementById('cantidad').value
+      };
+
+      const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
+      inventario.push(producto);
+      localStorage.setItem('inventario', JSON.stringify(inventario));
+
+      agregarFila(producto);
+      formulario.reset();
+    });
+
+    // Activar escáner de código de barras
+    function iniciarEscaner() {
+      Quagga.init({
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector('#scanner-container'),
+          constraints: {
+            facingMode: "environment"
+          }
+        },
+        decoder: {
+          readers: ["code_128_reader", "ean_reader", "upc_reader"]
+        }
+      }, function(err) {
+        if (err) {
+          console.error("Error al iniciar Quagga:", err);
+          return;
+        }
+        Quagga.start();
+      });
+
+      Quagga.onDetected(function(result) {
+        const codigo = result.codeResult.code;
+        document.getElementById("serie").value = codigo;
+        Quagga.stop(); // Detener escaneo después de detectar
+        document.getElementById("scanner-container").innerHTML = ""; // Limpiar vista
+      });
+    }
+    function exportarCSV() {
+  const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
+  if (inventario.length === 0) {
+    alert("No hay datos para exportar.");
+    return;
+  }
+
+  let csv = "Marca,Modelo,Número de Serie,Cantidad\n";
+  inventario.forEach(item => {
+    csv += `${item.marca},${item.modelo},${item.serie},${item.cantidad}\n`;
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "inventario.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+function exportarExcel() {
+  const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
+  if (inventario.length === 0) {
+    alert("No hay datos para exportar.");
+    return;
+  }
+
+  // Convertir a formato de hoja de cálculo
+  const hoja = inventario.map(item => ({
+    Marca: item.marca,
+    Modelo: item.modelo,
+    "Número de Serie": item.serie,
+    Cantidad: item.cantidad
+  }));
+
+  const libro = XLSX.utils.book_new();
+  const hojaExcel = XLSX.utils.json_to_sheet(hoja);
+  XLSX.utils.book_append_sheet(libro, hojaExcel, "Inventario");
+
+  // Descargar archivo
+  XLSX.writeFile(libro, "Inventario_Equipos.xlsx");
+}
+
+  </script>
+
+</body>
+</html>
