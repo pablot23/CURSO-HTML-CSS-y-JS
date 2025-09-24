@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulario de Registro</title>
+</head>
+<body>
+  <h2>Formulario de Registro</h2>
+  <form id="registro-form">
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre"><br><br>
+
+    <label for="apellido">Apellido:</label><br>
+    <input type="text" id="apellido" name="apellido"><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="mensaje-confirmacion" style="display:none; padding:15px; margin-top:20px; background-color:#e0ffe0; border:1px solid #00aa00; color:#006600; font-weight:bold; border-radius:5px;">
+  ¡Gracias por registrarte!
+</div>
+
+
+  <!-- <script>
+    document.getElementById("registro-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = new URLSearchParams(formData);
+
+      fetch("https://script.google.com/macros/s/AKfycbwTMzPZdIPWvz-H793ZyxAvGOiBlztqGSaLbqKBE5hCv80GCLmVmkswutq03wHG1vrs/exec", {
+        method: "POST",
+        body: data
+      })
+      .then(response => response.text())
+      .then(result => alert("Datos enviados correctamente"))
+      .catch(error => alert("Error al enviar los datos"));
+      form.reset(); // 🔹 Esta línea limpia todos los campos del formulario
+    });
+  </script> -->
+
+  <!-- <script>
+  document.getElementById("registro-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = new URLSearchParams(formData);
+
+    fetch("https://script.google.com/macros/s/AKfycbwTMzPZdIPWvz-H793ZyxAvGOiBlztqGSaLbqKBE5hCv80GCLmVmkswutq03wHG1vrs/exec", {
+      method: "POST",
+      body: data
+    })
+    .then(response => response.text())
+    .then(result => {
+      alert("Datos enviados correctamente");
+      form.reset(); // 🔹 Esta línea limpia todos los campos del formulario
+    })
+    .catch(error => alert("Error al enviar los datos"));
+  });
+</script> </script> -->
+
+<script>
+document.getElementById("registro-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+  const data = new URLSearchParams(formData);
+
+  fetch("https://script.google.com/macros/s/AKfycbwTMzPZdIPWvz-H793ZyxAvGOiBlztqGSaLbqKBE5hCv80GCLmVmkswutq03wHG1vrs/exec", {
+    method: "POST",
+    body: data
+  })
+  .then(response => response.text())
+  .then(result => {
+    form.reset(); // Limpia los campos
+    const mensaje = document.getElementById("mensaje-confirmacion");
+    mensaje.style.display = "block"; // Muestra el mensaje
+    mensaje.style.opacity = 0;
+    setTimeout(() => mensaje.style.opacity = 1, 100); // Animación suave
+
+    // Ocultar el mensaje después de 5 segundos
+    setTimeout(() => {
+      mensaje.style.opacity = 0;
+      setTimeout(() => mensaje.style.display = "none", 500);
+    }, 5000);
+  })
+  .catch(error => alert("Error al enviar los datos"));
+});
+</script>
+
+</body>
+</html>
