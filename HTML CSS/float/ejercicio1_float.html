@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Propiedad Float</title>
+    <style>
+        .container{
+            background-color: bisque;
+            width: 500px;
+            height: 500px;
+        }
+        .caja1{
+            width: 200px;
+            height: 200px;
+            background-color: greenyellow;
+            float: left;
+        }
+        .caja2{
+            width: 200px;
+            height: 200px;
+            background-color: coral;
+            float: right;
+        }
+        .caja3{
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+            float: left;
+        }
+        .caja4{
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            float: right;
+        }
+        img{
+            width: 250px;
+            float: left;
+            padding: 5px;
+        }
+        .limpiar-float{
+            clear: both;
+        }
+        .foto{
+            border: 1px solid black;
+            background-color: lightskyblue;
+           /* overflow: auto;*/
+        }
+        .clearfix::after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="caja1">Caja 1</div>
+        <div class="caja2">Caja 2</div>
+        <div class="caja3">Caja 3</div>
+        <div class="caja4">Caja 4</div>
+    </div>
+    <div class="container">
+        <div class="clearfix foto">
+        <img src="moto1.png" alt="moto">
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque officiis repudiandae
+             iure quis eius quibusdam id, sint commodi porro. Doloribus laudantium dolorem tempore, officiis
+              ullam voluptatem nam nobis mollitia perferendis.
+        </p>
+        </div>
+        <p class="limpiar-float">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi blanditiis error accusamus quia 
+            enim sit facere assumenda ducimus laudantium, placeat itaque rem veniam vel eaque ipsa nisi 
+            suscipit magni alias!</p>
+    </div>>
+
+    </div>
+</body>
+</html>
