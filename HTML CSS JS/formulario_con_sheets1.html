@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Registro</title>
+</head>
+<body>
+  <h2>Registro de Usuario</h2>
+  <form id="registro">
+    <label>Nombre completo:</label><br>
+    <input type="text" name="nombre" required><br><br>
+
+    <label>Correo electrónico:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Edad:</label><br>
+    <input type="number" name="edad" required><br><br>
+
+    <label>País:</label><br>
+    <input type="text" name="pais" required><br><br>
+
+    <label>Comentarios:</label><br>
+    <textarea name="comentarios" rows="4" cols="40"></textarea><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    document.getElementById("registro").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const url = "https://script.google.com/macros/s/AKfycbx5KqHFjaDHPXG5jnghQsYElt84Z0GspeO6cGZEfqeCd7M5LVYOgKg2wlMWNIN6IB4EbA/exec"; // Reemplaza con la URL del script de Google Apps Script
+
+      fetch(url, {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => alert(data))
+      .catch(error => console.error("Error:", error));
+    });
+  </script>
+</body>
+</html>

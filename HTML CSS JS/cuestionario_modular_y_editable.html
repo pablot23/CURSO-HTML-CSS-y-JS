@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuestionario Interactivo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .question {
+      display: none;
+    }
+    .question.active {
+      display: block;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      background: #3498db;
+      color: white;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #result {
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Cuestionario Interactivo de Algoritmos y Programación</h1>
+</header>
+
+<div class="container" id="quizScreen">
+  <form id="quizForm">
+    <label for="studentName"><strong>Nombre y Apellido del Estudiante:</strong></label>
+    <input type="text" id="studentName" name="studentName" required>
+
+    <!-- Pregunta 1 -->
+    <div class="question active">
+      <p>1. ¿Qué hace la estructura condicional Si...Entonces...SiNo en un algoritmo?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="b"> Evalúa una condición y ejecuta instrucciones según el resultado</label>
+        <label><input type="radio" name="q1" value="a"> Repite una acción muchas veces</label>
+        <label><input type="radio" name="q1" value="c"> Ordena los pasos del algoritmo</label>
+        <label><input type="radio" name="q1" value="d"> Lee datos desde el teclado</label>
+      </div>
+    </div>
+
+    <!-- Preguntas 2 a 10 (pueden duplicarse siguiendo el mismo formato) -->
+
+    <div id="result">
+      <h2>Tu puntuación: <span id="score"></span>/10</h2>
+      <button type="button" onclick="sendEmail()">Enviar al profesor</button>
+    </div>
+
+    <button type="button" onclick="nextQuestion()">Siguiente</button>
+  </form>
+</div>
+
+<div class="container" id="editScreen" style="display:none;">
+  <h2>Modo edición (profesor)</h2>
+  <p>Aquí podrás modificar preguntas, respuestas y título del cuestionario.</p>
+  <!-- Aquí podrías agregar campos para editar dinámicamente -->
+</div>
+
+<div class="container" id="loginScreen">
+  <h2>Acceso al modo edición</h2>
+  <input type="text" id="username" placeholder="Usuario">
+  <input type="password" id="password" placeholder="Contraseña">
+  <button onclick="login()">Ingresar como profesor</button>
+</div>
+
+<footer>
+  Escuela Secundaria Técnica · Área Informática · Año 2025
+</footer>
+
+<script>
+  const correctAnswers = {
+    q1: "b", q2: "c", q3: "c", q4: "d", q5: "b",
+    q6: "c", q7: "b", q8: "c", q9: "a", q10: "b"
+  };
+
+  let currentQuestion = 0;
+  const questions = document.querySelectorAll(".question");
+
+  function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+      questions[currentQuestion].classList.remove("active");
+      currentQuestion++;
+      questions[currentQuestion].classList.add("active");
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    let score = 0;
+    for (let key in correctAnswers) {
+      const selected = document.querySelector(`input[name="${key}"]:checked`);
+      if (selected && selected.value === correctAnswers[key]) {
+        score++;
+      }
+    }
+    document.getElementById("score").textContent = score;
+    document.getElementById("result").style.display = "block";
+    document.querySelector("button[type='button']").style.display = "none";
+  }
+
+  function sendEmail() {
+    const score = document.getElementById("score").textContent;
+    const student = document.getElementById("studentName").value;
+    const mailto = `mailto:profesor@escuela.edu?subject=Resultado Cuestionario&body=Estudiante: ${student}%0AResultado: ${score} puntos sobre 10.`;
+    window.location.href = mailto;
+  }
+
+  function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    if (user === "profesor" && pass === "clave123") {
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("editScreen").style.display = "block";
+    } else {
+      alert("Usuario o contraseña incorrectos");
+    }
+  }
+</script>
+
+</body>
+</html>

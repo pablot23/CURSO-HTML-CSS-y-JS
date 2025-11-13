@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario con mailto</title>
+</head>
+<body>
+  <h2>Formulario de contacto</h2>
+  <form action="mailto:destinatario@ejemplo.com" method="POST" enctype="text/plain">
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" name="Nombre" id="nombre"><br><br>
+
+    <label for="email">Correo electrónico:</label><br>
+    <input type="email" name="Correo" id="email"><br><br>
+
+    <label for="mensaje">Mensaje:</label><br>
+    <textarea name="Mensaje" id="mensaje" rows="5" cols="30"></textarea><br><br>
+
+    <input type="submit" value="Enviar correo">
+  </form>
+</body>
+</html>

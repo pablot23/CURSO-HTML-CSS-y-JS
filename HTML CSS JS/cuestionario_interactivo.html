@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuestionario Interactivo de Algoritmos y Programación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .question {
+      display: none;
+    }
+    .question.active {
+      display: block;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #result {
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cuestionario Interactivo de Algoritmos y Programación</h1>
+
+    <form id="quizForm">
+      <!-- Preguntas -->
+      <div class="question active">
+        <p>1. ¿Qué hace la estructura condicional Si...Entonces...SiNo?</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="b"> Evalúa una condición y ejecuta instrucciones según el resultado</label>
+          <label><input type="radio" name="q1" value="a"> Repite una acción muchas veces</label>
+          <label><input type="radio" name="q1" value="c"> Ordena los pasos del algoritmo</label>
+          <label><input type="radio" name="q1" value="d"> Lee datos desde el teclado</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. ¿Cuál es la diferencia principal entre Repetir y Mientras?</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="c"> Repetir ejecuta al menos una vez, Mientras puede no ejecutarse</label>
+          <label><input type="radio" name="q2" value="a"> Repetir se usa solo con números</label>
+          <label><input type="radio" name="q2" value="b"> Mientras se ejecuta al menos una vez</label>
+          <label><input type="radio" name="q2" value="d"> No hay diferencia</label>
+        </div>
+      </div>
+
+      <!-- Agregá aquí las preguntas 3 a 10 siguiendo el mismo formato -->
+
+      <div id="result">
+        <h2>Tu puntuación: <span id="score"></span>/10</h2>
+        <button onclick="sendEmail()">Enviar al profesor</button>
+      </div>
+
+      <button type="button" onclick="nextQuestion()">Siguiente</button>
+    </form>
+  </div>
+
+  <script>
+    const correctAnswers = {
+      q1: "b",
+      q2: "c",
+      // Agregá aquí las respuestas correctas de q3 a q10
+    };
+
+    let currentQuestion = 0;
+    const questions = document.querySelectorAll(".question");
+
+    function nextQuestion() {
+      if (currentQuestion < questions.length - 1) {
+        questions[currentQuestion].classList.remove("active");
+        currentQuestion++;
+        questions[currentQuestion].classList.add("active");
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      let score = 0;
+      for (let key in correctAnswers) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (selected && selected.value === correctAnswers[key]) {
+          score++;
+        }
+      }
+      document.getElementById("score").textContent = score;
+      document.getElementById("result").style.display = "block";
+      document.querySelector("button[type='button']").style.display = "none";
+    }
+
+    function sendEmail() {
+      const score = document.getElementById("score").textContent;
+      const mailto = `mailto:profesor@escuela.edu?subject=Resultado Cuestionario&body=El estudiante obtuvo ${score} puntos sobre 10.`;
+      window.location.href = mailto;
+    }
+  </script>
+</body>
+</html>

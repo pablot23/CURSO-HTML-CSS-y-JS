@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuestionario Interactivo de Algoritmos y Programación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef0f3;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    header img {
+      max-height: 60px;
+      vertical-align: middle;
+      margin-right: 150px;}
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .question {
+      display: none;
+    }
+    .question.active {
+      display: block;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #result {
+      display: none;
+      text-align: center;
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 30px;
+      font-size: 0.9em;
+    }
+    .preg {
+      font-size: 18px;
+      font-weight: bold;
+      color: rgb(3, 85, 129);
+    }
+  </style>
+</head>
+<body>
+    <header>
+    <img src="logo.png" alt="Logo del colegio">
+    <span>Cuestionario Interactivo de Algoritmos y Programación</span>
+    </header>
+
+    <div class="container">
+    <form id="quizForm">
+      <h1>Nombre y Apellido del Estudiante</h1>
+      <input type="text" id="studentName" name="studentName" placeholder="Ej: Juan Pérez" required> </div>
+
+  <div class="container">
+    <h1>Cuestionario Interactivo de Algoritmos y Programación</h1>
+
+    <form id="quizForm">
+      <!-- Preguntas -->
+      <div class="question active">
+        <p class="preg">1. ¿Qué hace la estructura condicional Si...Entonces...SiNo en un algoritmo?</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> Repite una acción muchas veces</label>
+          <label><input type="radio" name="q1" value="b"> Evalúa una condición y ejecuta instrucciones según el resultado</label>
+          <label><input type="radio" name="q1" value="c"> Ordena los pasos del algoritmo</label>
+          <label><input type="radio" name="q1" value="d"> Lee datos desde el teclado</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">2. ¿Cuál es la diferencia principal entre Repetir y Mientras?</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="b"> Mientras se ejecuta al menos una vez</label>
+          <label><input type="radio" name="q2" value="a"> Repetir se usa solo con números</label>
+          <label><input type="radio" name="q2" value="c"> Repetir ejecuta el bucle al menos una vez, Mientras puede no ejecutarse</label>
+          <label><input type="radio" name="q2" value="d"> No hay diferencia</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">3. ¿Qué resultado muestra este pseudocódigo si A = 5 y B = 5?</p>
+        <div><p>
+            <i><b>Si (A = B) Entonces 
+            <br>
+                Escribir "Son iguales" <br>
+                    SiNo <br>
+                Escribir "Son distintos" <br>
+            FinSi </b></i>
+</p></div>
+        <div class="options">
+          <label><input type="radio" name="q3" value="b"> Error</label>
+          <label><input type="radio" name="q3" value="a"> Son distintos</label>
+          <label><input type="radio" name="q3" value="c"> Son iguales</label>
+          <label><input type="radio" name="q3" value="d"> No muestra nada</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">4. ¿Qué estructura usarías para mostrar un mensaje diferente según el número que elija el usuario?</p>
+        <div class="options">
+          <label><input type="radio" name="q4" value="c"> Repetir</label>
+          <label><input type="radio" name="q4" value="a"> Si/Sino</label>
+          <label><input type="radio" name="q4" value="b"> Mientras</label>
+          <label><input type="radio" name="q4" value="d"> Segun</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">5. ¿Qué condición hace que este bucle termine?</p>
+        <div><p>
+            <i><b> 
+            <br>
+                Repetir <br>
+                Leer Num <br>
+                Hasta Que (Num = 4)
+            </b></i>
+            </p></div>
+        <div class="options">
+          <label><input type="radio" name="q5" value="a"> Cuando el número es mayor que 4</label>
+          <label><input type="radio" name="q5" value="b"> Cuando el número es igual a 4</label>
+          <label><input type="radio" name="q5" value="c"> Cuando el número es menor que 4</label>
+          <label><input type="radio" name="q5" value="d"> Nunca termina</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">6. ¿Cuál es el orden correcto de una estructura Mientras en pseudocódigo?</p>
+        <div class="options">
+          <label><input type="radio" name="q6" value="b"> Escribir → Mientras → FinMientras</label>
+          <label><input type="radio" name="q6" value="a"> Mientras → FinMientras → Escribir</label>
+          <label><input type="radio" name="q6" value="c"> Mientras (condición) → instrucciones → FinMientras</label>
+          <label><input type="radio" name="q6" value="d"> FinMientras → instrucciones → Mientras</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">7. ¿Qué muestra este código si Num comienza en 0?</p>
+        <div><p>
+            <i><b> 
+                Mientras (Num < 3) <br>
+                Num ← Num + 1 <br>
+                Escribir Num <br>
+                FinMientras
+
+            </b></i>
+        </p></div>
+        <div class="options">
+          <label><input type="radio" name="q7" value="a"> 0, 1, 2</label>
+          <label><input type="radio" name="q7" value="b"> 1, 2, 3</label>
+          <label><input type="radio" name="q7" value="c"> 3, 2, 1</label>
+          <label><input type="radio" name="q7" value="d"> Solo 3</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">8. ¿Qué palabra clave se usa para cerrar una estructura condicional en PSeInt?</p>
+        <div class="options">
+          <label><input type="radio" name="q8" value="b"> FinMientras</label>
+          <label><input type="radio" name="q8" value="a"> Fin</label>
+          <label><input type="radio" name="q8" value="c"> FinSi</label>
+          <label><input type="radio" name="q8" value="d"> FinRepetir</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">9. ¿Cuál es el resultado de este código si el usuario ingresa 3, luego 5, luego 4?</p>
+        <div><p>
+            <i><b> 
+                Repetir <br>
+                    Leer Num <br>
+                Hasta Que (Num = 4) <br>
+          </b></i>
+        </p></div>
+        <div class="options">
+          <label><input type="radio" name="q9" value="a"> Se repite 3 veces</label>
+          <label><input type="radio" name="q9" value="b"> Se repite 2 veces</label>
+          <label><input type="radio" name="q9" value="c"> Se repite 1 vez</label>
+          <label><input type="radio" name="q9" value="d"> No se repite</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="preg">10. ¿Qué muestra este código?</p>
+        <div><p>
+            <i><b> 
+                A ← 10 <br>
+                Si (A > 5) Entonces <br>
+                Escribir "Mayor que 5" <br>
+                FinSi <br>
+          </b></i>
+        </p></div>
+        <div class="options">
+          <label><input type="radio" name="q10" value="a"> Error </label>
+          <label><input type="radio" name="q10" value="b"> Mayor que 5</label>
+          <label><input type="radio" name="q10" value="c"> Menor que 5</label>
+          <label><input type="radio" name="q10" value="d"> Nada</label>
+        </div>
+      </div>
+
+      <div id="result">
+        <h2>Tu puntuación: <span id="score"></span>/10</h2>
+        <button onclick="sendEmail()">Enviar al profesor</button>
+      </div>
+
+      <button type="button" onclick="nextQuestion()">Siguiente</button>
+    </form>
+  </div>
+
+<footer>
+    Escuela Experimental PRoA Río 3 · Año 2025 · Profesor: Torres Pablo  
+  </footer>
+
+  <script>
+  const correctAnswers = {
+    q1: "b", q2: "c", q3: "c", q4: "d", q5: "b",
+    q6: "c", q7: "b", q8: "c", q9: "a", q10: "b"
+  };
+
+  let currentQuestion = 0;
+  const questions = document.querySelectorAll(".question");
+
+  function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+      questions[currentQuestion].classList.remove("active");
+      currentQuestion++;
+      questions[currentQuestion].classList.add("active");
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    let score = 0;
+    for (let key in correctAnswers) {
+      const selected = document.querySelector(`input[name="${key}"]:checked`);
+      if (selected && selected.value === correctAnswers[key]) {
+        score++;
+      }
+    }
+    document.getElementById("score").textContent = score;
+    document.getElementById("result").style.display = "block";
+    document.querySelector("button[type='button']").style.display = "none";
+  }
+
+  function sendEmail() {
+      const score = document.getElementById("score").textContent;
+      const student = document.getElementById("studentName").value;
+      const mailto = `mailto:profesor@escuela.edu?subject=Resultado Cuestionario&body=Estudiante: ${student}%0AResultado: ${score} puntos sobre 10 en el cuestionario de Algoritmos y Programación.`;
+      window.location.href = mailto;
+  }
+</script>
+</body>
+</html>
