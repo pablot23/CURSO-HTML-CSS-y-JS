@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario Interactivo - PSeInt</title>
+    <!-- 1. Carga de Tailwind CSS para un diseño moderno y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo personalizado para la fuente y un botón seleccionado */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para la opción seleccionada */
+        .option-selected {
+            background-color: #dbeafe; /* Tailwind: bg-blue-100 */
+            border-color: #3b82f6;   /* Tailwind: border-blue-500 */
+            font-weight: 600;
+        }
+        /* Estilo para la pantalla de edición (textarea) */
+        #edit-questions-json {
+            min-height: 400px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Contenedor principal del cuestionario -->
+    <main class="bg-white w-full max-w-2xl rounded-2xl shadow-xl p-6 md:p-10 transition-all duration-300">
+
+        <!-- 1. Pantalla de Bienvenida -->
+        <div id="welcome-screen">
+            <h1 id="quiz-title" class="text-3xl font-bold text-center text-blue-700 mb-6"></h1>
+            <p class="text-lg text-center mb-6">Ingresa tu nombre y apellido para comenzar.</p>
+            <div class="mb-4">
+                <label for="student-name" class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo:</label>
+                <input type="text" id="student-name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: Ada Lovelace">
+                <p id="name-error" class="text-red-500 text-sm mt-1 hidden">Por favor, ingresa tu nombre.</p>
+            </div>
+            <button id="start-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200">
+                Comenzar
+            </button>
+            <div class="text-center mt-6">
+                <a href="#" id="edit-link" class="text-sm text-gray-500 hover:text-blue-600 hover:underline">Modo Edición (Profesor)</a>
+            </div>
+        </div>
+
+        <!-- 2. Pantalla del Cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <p id="progress-text" class="text-sm font-medium text-gray-500 mb-2"></p>
+            <h2 id="question-text" class="text-2xl font-semibold mb-6"></h2>
+            <div id="options-container" class="space-y-3">
+                <!-- Las opciones se generan con JS aquí -->
+            </div>
+            <button id="next-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200 mt-8" disabled>
+                Siguiente
+            </button>
+        </div>
+
+        <!-- 3. Pantalla de Resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h2 id="results-title" class="text-3xl font-bold text-blue-700 mb-4"></h2>
+            <p id="score-text" class="text-5xl font-extrabold text-gray-800 mb-8"></p>
+            <p class="text-lg mb-6">¡Buen trabajo completando el cuestionario!</p>
+            <button id="email-btn" class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-200 mb-4">
+                Enviar Resultado al Profesor
+            </button>
+            <button id="restart-btn" class="w-full bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg text-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-300 transition duration-200">
+                Volver al Inicio
+            </button>
+        </div>
+
+        <!-- 4. Pantalla de Edición (Profesor) -->
+        <div id="edit-screen" class="hidden">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6">Modo Edición</h2>
+            <div class="mb-4">
+                <label for="edit-title" class="block text-sm font-medium text-gray-700 mb-2">Título del Cuestionario:</label>
+                <input type="text" id="edit-title" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="edit-questions-json" class="block text-sm font-medium text-gray-700 mb-2">Preguntas (en formato JSON):</label>
+                <textarea id="edit-questions-json" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <p id="json-error" class="text-red-500 text-sm mt-1 hidden"></p>
+            </div>
+            <div class="flex gap-4">
+                <button id="save-edits-btn" class="flex-1 bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-200">
+                    Guardar Cambios
+                </button>
+                <button id="cancel-edits-btn" class="flex-1 bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-300 transition duration-200">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal de Login para Edición -->
+    <div id="edit-login-screen" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-2xl shadow-xl p-8">
+            <h3 class="text-xl font-bold text-center mb-6">Acceso de Profesor</h3>
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Contraseña:</label>
+                <input type="password" id="password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <p id="password-error" class="text-red-500 text-sm mt-1 hidden">Contraseña incorrecta.</p>
+            </div>
+            <button id="login-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200">
+                Ingresar
+            </button>
+            <button id="cancel-login-btn" class="w-full bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-300 transition duration-200 mt-3">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Lógica de JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- VARIABLES DE ESTADO ---
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let studentName = "";
+            let quizData = {};
+            let selectedOptionElement = null;
+            const professorPassword = "profe123"; // Contraseña para editar
+            const localStorageKey = "pseintQuizData";
+
+            // --- PREGUNTAS POR DEFECTO ---
+            const defaultQuizData = {
+                title: "Cuestionario PSeInt: Condicionales y Bucles",
+                questions: [
+                    {
+                        question: "¿Qué hace la estructura 'Si ... Entonces'?",
+                        options: [
+                            "Repite un bloque de código varias veces.",
+                            "Ejecuta un bloque de código solo si una condición es verdadera.",
+                            "Elige entre varias opciones posibles.",
+                            "Asigna un valor a una variable."
+                        ],
+                        answer: 1 // Índice de la respuesta correcta
+                    },
+                    {
+                        question: "¿Cuándo se ejecuta el bloque 'Sino' en un 'Si ... Entonces ... Sino'?",
+                        options: [
+                            "Siempre se ejecuta.",
+                            "Solo si la condición del 'Si' es verdadera.",
+                            "Solo si la condición del 'Si' es falsa.",
+                            "Nunca se ejecuta."
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "¿Para qué sirve la estructura 'Segun' (o 'Caso Sea')?",
+                        options: [
+                            "Para reemplazar a todos los bucles.",
+                            "Para ejecutar código si una condición es falsa.",
+                            "Para seleccionar un camino entre múltiples opciones basadas en el valor de una variable.",
+                            "Para repetir código un número fijo de veces."
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "El bucle 'Repetir ... Hasta Que'...",
+                        options: [
+                            "Se ejecuta mientras la condición sea verdadera.",
+                            "Se ejecuta al menos una vez, y se repite hasta que la condición sea verdadera.",
+                            "Nunca se ejecuta si la condición es falsa al inicio.",
+                            "Se usa solo para contar números."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "El bucle 'Mientras ... Hacer'...",
+                        options: [
+                            "Se ejecuta mientras la condición sea verdadera, y podría no ejecutarse nunca.",
+                            "Siempre se ejecuta al menos una vez.",
+                            "Se detiene cuando la condición se vuelve verdadera.",
+                            "Es idéntico al bucle 'Repetir'."
+                        ],
+                        answer: 0
+                    },
+                    {
+                        question: "¿Qué es un 'bucle anidado'?",
+                        options: [
+                            "Un bucle que nunca termina.",
+                            "Un bucle dentro de otro bucle.",
+                            "Un condicional dentro de un bucle.",
+                            "Un bucle que usa dos variables."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "Si quiero pedir una nota al usuario hasta que ingrese un valor válido (entre 0 y 10), ¿qué bucle es más adecuado?",
+                        options: [
+                            "Un 'Mientras' que verifique si la nota es incorrecta.",
+                            "Un 'Repetir' que pida la nota y se repita si es incorrecta.",
+                            "Un 'Segun' con opciones para cada nota.",
+                            "Un 'Si ... Entonces'."
+                        ],
+                        answer: 1 // 'Repetir' es ideal porque debe pedir la nota AL MENOS una vez.
+                    },
+                    {
+                        question: "En PSeInt, 'a <- 5' es una operación de...",
+                        options: [
+                            "Comparación",
+                            "Asignación",
+                            "Condición",
+                            "Bucle"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        question: "La condición 'x > 10 Y x < 20' será verdadera si 'x' vale...",
+                        options: [
+                            "10",
+                            "20",
+                            "15",
+                            "9"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        question: "¿Cuál es la diferencia principal entre 'Mientras' y 'Repetir'?",
+                        options: [
+                            "No hay diferencia, son iguales.",
+                            "'Mientras' evalúa la condición al inicio y 'Repetir' al final.",
+                            "'Mientras' es para números y 'Repetir' es para texto.",
+                            "'Repetir' evalúa la condición al inicio y 'Mientras' al final."
+                        ],
+                        answer: 1
+                    }
+                ]
+            };
+
+            // --- SELECTORES DEL DOM ---
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const quizScreen = document.getElementById('quiz-screen');
+            const resultsScreen = document.getElementById('results-screen');
+            const editScreen = document.getElementById('edit-screen');
+            const editLoginScreen = document.getElementById('edit-login-screen');
+
+            const quizTitle = document.getElementById('quiz-title');
+            const studentNameInput = document.getElementById('student-name');
+            const nameError = document.getElementById('name-error');
+            const startBtn = document.getElementById('start-btn');
+            
+            const progressText = document.getElementById('progress-text');
+            const questionText = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const nextBtn = document.getElementById('next-btn');
+
+            const resultsTitle = document.getElementById('results-title');
+            const scoreText = document.getElementById('score-text');
+            const emailBtn = document.getElementById('email-btn');
+            const restartBtn = document.getElementById('restart-btn');
+
+            const editLink = document.getElementById('edit-link');
+            const passwordInput = document.getElementById('password');
+            const passwordError = document.getElementById('password-error');
+            const loginBtn = document.getElementById('login-btn');
+            const cancelLoginBtn = document.getElementById('cancel-login-btn');
+
+            const editTitleInput = document.getElementById('edit-title');
+            const editQuestionsJson = document.getElementById('edit-questions-json');
+            const jsonError = document.getElementById('json-error');
+            const saveEditsBtn = document.getElementById('save-edits-btn');
+            const cancelEditsBtn = document.getElementById('cancel-edits-btn');
+
+            // --- FUNCIONES PRINCIPALES ---
+
+            // Carga los datos del quiz desde localStorage o usa los por defecto
+            function loadQuizData() {
+                const savedData = localStorage.getItem(localStorageKey);
+                if (savedData) {
+                    quizData = JSON.parse(savedData);
+                } else {
+                    quizData = defaultQuizData;
+                }
+                quizTitle.textContent = quizData.title;
+            }
+
+            // Guarda los datos del quiz en localStorage
+            function saveQuizData() {
+                localStorage.setItem(localStorageKey, JSON.stringify(quizData));
+            }
+
+            // Inicia el cuestionario
+            function startQuiz() {
+                studentName = studentNameInput.value.trim();
+                if (studentName === "") {
+                    nameError.classList.remove('hidden');
+                    studentNameInput.classList.add('border-red-500');
+                    return;
+                }
+                nameError.classList.add('hidden');
+                studentNameInput.classList.remove('border-red-500');
+                
+                currentQuestionIndex = 0;
+                score = 0;
+                welcomeScreen.classList.add('hidden');
+                quizScreen.classList.remove('hidden');
+                showQuestion();
+            }
+
+            // Muestra la pregunta actual y sus opciones
+            function showQuestion() {
+                resetState();
+                const q = quizData.questions[currentQuestionIndex];
+                
+                questionText.textContent = q.question;
+                progressText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizData.questions.length}`;
+                
+                optionsContainer.innerHTML = "";
+                q.options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.innerHTML = option;
+                    button.dataset.index = index;
+                    button.classList.add('w-full', 'text-left', 'p-4', 'rounded-lg', 'border', 'border-gray-300', 'hover:bg-gray-100', 'transition-all', 'duration-200');
+                    button.addEventListener('click', selectAnswer);
+                    optionsContainer.appendChild(button);
+                });
+
+                if (currentQuestionIndex === quizData.questions.length - 1) {
+                    nextBtn.textContent = "Finalizar Cuestionario";
+                } else {
+                    nextBtn.textContent = "Siguiente";
+                }
+            }
+
+            // Resetea el estado entre preguntas
+            function resetState() {
+                selectedOptionElement = null;
+                nextBtn.disabled = true;
+            }
+
+            // Maneja la selección de una respuesta
+            function selectAnswer(e) {
+                // Quitar selección previa
+                if (selectedOptionElement) {
+                    selectedOptionElement.classList.remove('option-selected');
+                }
+                
+                selectedOptionElement = e.target;
+                selectedOptionElement.classList.add('option-selected');
+                nextBtn.disabled = false;
+            }
+
+            // Va a la siguiente pregunta o muestra resultados
+            function nextQuestion() {
+                const selectedIndex = parseInt(selectedOptionElement.dataset.index);
+                const correctIndex = quizData.questions[currentQuestionIndex].answer;
+
+                if (selectedIndex === correctIndex) {
+                    score++;
+                }
+
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizData.questions.length) {
+                    showQuestion();
+                } else {
+                    showResults();
+                }
+            }
+
+            // Muestra la pantalla de resultados finales
+            function showResults() {
+                quizScreen.classList.add('hidden');
+                resultsScreen.classList.remove('hidden');
+
+                const finalScore = (score / quizData.questions.length) * 10;
+                resultsTitle.textContent = `¡Felicidades, ${studentName}!`;
+                scoreText.textContent = `${finalScore.toFixed(1)} / 10`;
+            }
+
+            // Genera el link mailto para enviar el correo
+            function sendEmail() {
+                const subject = `Resultado Cuestionario PSeInt - ${studentName}`;
+                const body = `Hola Profesor/a,\n\nMi nombre es ${studentName} y mi puntaje en el cuestionario de PSeInt fue ${scoreText.textContent}.\n\nSaludos.`;
+                const mailtoLink = `mailto:profesor@ejemplo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // (Usar un email placeholder)
+                alert("Se abrirá tu cliente de correo. Reemplaza 'profesor@ejemplo.com' por el email de tu profesor.");
+                
+                window.location.href = mailtoLink;
+            }
+
+            // Reinicia el cuestionario
+            function restartQuiz() {
+                resultsScreen.classList.add('hidden');
+                welcomeScreen.classList.remove('hidden');
+                studentNameInput.value = "";
+                loadQuizData(); // Recarga el título por si fue editado
+            }
+
+            // --- FUNCIONES DE EDICIÓN ---
+
+            function showEditLogin() {
+                passwordInput.value = "";
+                passwordError.classList.add('hidden');
+                editLoginScreen.classList.remove('hidden');
+            }
+
+            function loginToEdit() {
+                if (passwordInput.value === professorPassword) {
+                    editLoginScreen.classList.add('hidden');
+                    welcomeScreen.classList.add('hidden');
+                    editScreen.classList.remove('hidden');
+                    loadEditData();
+                } else {
+                    passwordError.classList.remove('hidden');
+                }
+            }
+
+            function cancelLogin() {
+                editLoginScreen.classList.add('hidden');
+            }
+
+            // Carga los datos actuales en los campos de edición
+            function loadEditData() {
+                editTitleInput.value = quizData.title;
+                // Formateamos el JSON para que sea legible en el textarea
+                editQuestionsJson.value = JSON.stringify(quizData.questions, null, 2);
+                jsonError.classList.add('hidden');
+            }
+
+            // Guarda los cambios realizados en el modo edición
+            function saveEdits() {
+                try {
+                    const newTitle = editTitleInput.value.trim();
+                    const newQuestions = JSON.parse(editQuestionsJson.value);
+
+                    if (!newTitle || newQuestions.length === 0) {
+                        jsonError.textContent = "El título y las preguntas no pueden estar vacíos.";
+                        jsonError.classList.remove('hidden');
+                        return;
+                    }
+
+                    // Simple validación de la estructura de preguntas
+                    if (!Array.isArray(newQuestions) || !newQuestions.every(q => q.question && Array.isArray(q.options) && typeof q.answer === 'number')) {
+                        throw new Error("La estructura del JSON de preguntas es incorrecta.");
+                    }
+
+                    quizData.title = newTitle;
+                    quizData.questions = newQuestions;
+                    saveQuizData();
+                    
+                    jsonError.classList.add('hidden');
+                    alert("¡Cambios guardados con éxito!");
+                    cancelEdits();
+
+                } catch (error) {
+                    jsonError.textContent = "Error: El formato JSON no es válido. Revisa la sintaxis. " + error.message;
+                    jsonError.classList.remove('hidden');
+                }
+            }
+
+            // Cancela la edición y vuelve al inicio
+            function cancelEdits() {
+                editScreen.classList.add('hidden');
+                welcomeScreen.classList.remove('hidden');
+                loadQuizData(); // Recarga los datos (título) en la pantalla principal
+            }
+
+            // --- ASIGNACIÓN DE EVENTOS ---
+            startBtn.addEventListener('click', startQuiz);
+            nextBtn.addEventListener('click', nextQuestion);
+            restartBtn.addEventListener('click', restartQuiz);
+            emailBtn.addEventListener('click', sendEmail);
+            
+            editLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showEditLogin();
+            });
+            
+            loginBtn.addEventListener('click', loginToEdit);
+            cancelLoginBtn.addEventListener('click', cancelLogin);
+            saveEditsBtn.addEventListener('click', saveEdits);
+            cancelEditsBtn.addEventListener('click', cancelEdits);
+            
+            // --- INICIALIZACIÓN ---
+            loadQuizData();
+        });
+    </script>
+</body>
+</html>
