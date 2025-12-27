@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Espera - Nuevo Programa</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
+    }
+    
+    .electric-blue {
+      color: #0066ff;
+    }
+    
+    .btn-primary {
+      background: #0066ff;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background: #0052cc;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 102, 255, 0.3);
+    }
+    
+    .card-benefit {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .card-benefit:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-input {
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+      width: 100%;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #0066ff;
+    }
+    
+    .testimonial-card {
+      background: #f9fafb;
+      border-left: 4px solid #0066ff;
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .success-message {
+      background: #10b981;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      margin-top: 16px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .error-message {
+      background: #ef4444;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      margin-top: 16px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .icon-circle {
+      width: 64px;
+      height: 64px;
+      background: #0066ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    
+    .loading-spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+      margin-right: 8px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body><!-- Hero Section -->
+  <section class="gradient-bg text-white" style="width: 100%; min-height: 100%; padding: 80px 24px;">
+   <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+    <h1 id="hero-title" style="font-size: 56px; font-weight: 700; margin-bottom: 24px; line-height: 1.2;">Únete a la Lista de Espera del Nuevo Programa</h1>
+    <p id="hero-subtitle" style="font-size: 24px; font-weight: 300; margin-bottom: 48px; color: #e5e7eb; max-width: 800px; margin-left: auto; margin-right: auto;">Sé parte del primer acceso a una experiencia diseñada para transformar tus resultados</p><button id="hero-cta" onclick="scrollToForm()" class="btn-primary" style="color: white; padding: 20px 48px; border-radius: 12px; font-size: 18px; font-weight: 600; border: none; cursor: pointer;"> Unirme a la Lista de Espera </button>
+    <div style="margin-top: 80px;">
+     <p style="font-size: 20px; font-weight: 300; color: #9ca3af; margin-bottom: 32px;">Un programa creado para quienes quieren crecer, aprender y lograr transformaciones reales</p>
+    </div>
+   </div>
+  </section><!-- Benefits Section -->
+  <section style="width: 100%; background: #f9fafb; padding: 80px 24px;">
+   <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-size: 42px; font-weight: 700; text-align: center; margin-bottom: 64px; color: #1f2937;">¿Qué Obtendrás con Este Programa?</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;"><!-- Benefit 1 -->
+     <div class="card-benefit">
+      <div class="icon-circle">
+       <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /> <polyline points="22 4 12 14.01 9 11.01"></polyline>
+       </svg>
+      </div>
+      <h3 id="benefit-1-title" style="font-size: 24px; font-weight: 600; margin-bottom: 16px; text-align: center; color: #1f2937;">Transforma tu Mentalidad</h3>
+      <p id="benefit-1-desc" style="font-size: 16px; color: #6b7280; text-align: center; line-height: 1.6;">Desarrolla una mentalidad ganadora que te impulse hacia el éxito y resultados excepcionales</p>
+     </div><!-- Benefit 2 -->
+     <div class="card-benefit">
+      <div class="icon-circle">
+       <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+       </svg>
+      </div>
+      <h3 id="benefit-2-title" style="font-size: 24px; font-weight: 600; margin-bottom: 16px; text-align: center; color: #1f2937;">Resultados Medibles</h3>
+      <p id="benefit-2-desc" style="font-size: 16px; color: #6b7280; text-align: center; line-height: 1.6;">Estrategias probadas que generan resultados tangibles y medibles en tu vida profesional</p>
+     </div><!-- Benefit 3 -->
+     <div class="card-benefit">
+      <div class="icon-circle">
+       <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4"></circle> <path d="M23 21v-2a4 4 0 0 0-3-3.87" /> <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+       </svg>
+      </div>
+      <h3 id="benefit-3-title" style="font-size: 24px; font-weight: 600; margin-bottom: 16px; text-align: center; color: #1f2937;">Comunidad Exclusiva</h3>
+      <p id="benefit-3-desc" style="font-size: 16px; color: #6b7280; text-align: center; line-height: 1.6;">Conéctate con personas de alto rendimiento que comparten tus mismos objetivos</p>
+     </div>
+    </div>
+   </div>
+  </section><!-- Form Section -->
+  <section id="form-section" style="width: 100%; background: white; padding: 80px 24px;">
+   <div style="max-width: 600px; margin: 0 auto;">
+    <h2 id="form-title" style="font-size: 42px; font-weight: 700; text-align: center; margin-bottom: 16px; color: #1f2937;">Asegura tu Lugar Ahora</h2>
+    <p style="font-size: 18px; color: #6b7280; text-align: center; margin-bottom: 48px;">Completa el formulario y sé parte de la primera cohorte</p>
+    <form id="waitlist-form" onsubmit="handleSubmit(event)" style="background: #f9fafb; padding: 40px; border-radius: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+     <div style="margin-bottom: 24px;"><label for="nombre" style="display: block; font-weight: 600; margin-bottom: 8px; color: #374151;"> Nombre Completo * </label> <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Juan Pérez" required>
+     </div>
+     <div style="margin-bottom: 24px;"><label for="email" style="display: block; font-weight: 600; margin-bottom: 8px; color: #374151;"> Correo Electrónico * </label> <input type="email" id="email" name="email" class="form-input" placeholder="tu@email.com" required>
+     </div>
+     <div style="margin-bottom: 32px;"><label for="pais" style="display: block; font-weight: 600; margin-bottom: 8px; color: #374151;"> País de Latinoamérica * </label> <select id="pais" name="pais" class="form-input" required style="cursor: pointer;"> <option value="">Selecciona tu país</option> <option value="Argentina">Argentina</option> <option value="Bolivia">Bolivia</option> <option value="Brasil">Brasil</option> <option value="Chile">Chile</option> <option value="Colombia">Colombia</option> <option value="Costa Rica">Costa Rica</option> <option value="Cuba">Cuba</option> <option value="Ecuador">Ecuador</option> <option value="El Salvador">El Salvador</option> <option value="Guatemala">Guatemala</option> <option value="Honduras">Honduras</option> <option value="México">México</option> <option value="Nicaragua">Nicaragua</option> <option value="Panamá">Panamá</option> <option value="Paraguay">Paraguay</option> <option value="Perú">Perú</option> <option value="Puerto Rico">Puerto Rico</option> <option value="República Dominicana">República Dominicana</option> <option value="Uruguay">Uruguay</option> <option value="Venezuela">Venezuela</option> </select>
+     </div><button type="submit" id="submit-btn" class="btn-primary" style="width: 100%; color: white; padding: 18px; border-radius: 12px; font-size: 18px; font-weight: 600; border: none; cursor: pointer;"> Registrarme Ahora </button>
+     <div id="success-message" class="success-message">
+      ✓ ¡Registro exitoso! Bienvenido a la lista de espera
+     </div>
+     <div id="error-message" class="error-message">
+      ⚠ Por favor completa todos los campos obligatorios
+     </div>
+    </form>
+   </div>
+  </section><!-- Trust Section -->
+  <section style="width: 100%; background: #f9fafb; padding: 80px 24px;">
+   <div style="max-width: 900px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 48px;">
+     <svg width="48" height="48" viewbox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" style="margin: 0 auto 16px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect> <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+     </svg>
+     <p id="trust-message" style="font-size: 20px; font-weight: 600; color: #1f2937;">Tu información está segura y nunca será compartida</p>
+    </div>
+    <h3 style="font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 32px; color: #1f2937;">Lo Que Dicen Nuestros Participantes</h3>
+    <div class="testimonial-card">
+     <p id="testimonial-1" style="font-size: 16px; color: #374151; line-height: 1.6; margin-bottom: 12px; font-style: italic;">"Este programa cambió completamente mi perspectiva profesional. Los resultados superaron todas mis expectativas."</p>
+     <p style="font-weight: 600; color: #0066ff;">— María González, Emprendedora</p>
+    </div>
+    <div class="testimonial-card">
+     <p id="testimonial-2" style="font-size: 16px; color: #374151; line-height: 1.6; margin-bottom: 12px; font-style: italic;">"Una experiencia transformadora. Las herramientas y estrategias son prácticas y aplicables desde el día uno."</p>
+     <p style="font-weight: 600; color: #0066ff;">— Carlos Ramírez, Director de Marketing</p>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 32px; margin-top: 48px; flex-wrap: wrap;">
+     <div style="text-align: center;">
+      <div style="width: 80px; height: 80px; background: #e5e7eb; border-radius: 8px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center;"><span style="font-size: 14px; color: #6b7280; font-weight: 600;">EMPRESA 1</span>
+      </div>
+     </div>
+     <div style="text-align: center;">
+      <div style="width: 80px; height: 80px; background: #e5e7eb; border-radius: 8px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center;"><span style="font-size: 14px; color: #6b7280; font-weight: 600;">EMPRESA 2</span>
+      </div>
+     </div>
+     <div style="text-align: center;">
+      <div style="width: 80px; height: 80px; background: #e5e7eb; border-radius: 8px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center;"><span style="font-size: 14px; color: #6b7280; font-weight: 600;">EMPRESA 3</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer style="width: 100%; background: #1f2937; color: white; padding: 48px 24px;">
+   <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+    <div style="margin-bottom: 32px;">
+     <h4 style="font-size: 24px; font-weight: 700; margin-bottom: 16px;">Síguenos en Redes Sociales</h4>
+     <div style="display: flex; justify-content: center; gap: 24px;"><a href="#" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; transition: color 0.3s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9ca3af'">
+       <svg width="32" height="32" viewbox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+       </svg></a> <a href="#" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; transition: color 0.3s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9ca3af'">
+       <svg width="32" height="32" viewbox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+       </svg></a> <a href="#" target="_blank" rel="noopener noreferrer" style="color: #9ca3af; transition: color 0.3s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9ca3af'">
+       <svg width="32" height="32" viewbox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+       </svg></a>
+     </div>
+    </div>
+    <div style="border-top: 1px solid #374151; padding-top: 24px;">
+     <p id="footer-copyright" style="font-size: 14px; color: #9ca3af; margin-bottom: 8px;">© 2024 Nuevo Programa. Todos los derechos reservados.</p>
+     <div style="display: flex; justify-content: center; gap: 24px; font-size: 14px;"><a href="#" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9ca3af'"> Política de Privacidad </a> <a href="#" style="color: #9ca3af; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9ca3af'"> Términos y Condiciones </a>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script>
+    const defaultConfig = {
+      hero_title: "Únete a la Lista de Espera del Nuevo Programa",
+      hero_subtitle: "Sé parte del primer acceso a una experiencia diseñada para transformar tus resultados",
+      hero_button: "Unirme a la Lista de Espera",
+      benefit_1_title: "Transforma tu Mentalidad",
+      benefit_1_desc: "Desarrolla una mentalidad ganadora que te impulse hacia el éxito y resultados excepcionales",
+      benefit_2_title: "Resultados Medibles",
+      benefit_2_desc: "Estrategias probadas que generan resultados tangibles y medibles en tu vida profesional",
+      benefit_3_title: "Comunidad Exclusiva",
+      benefit_3_desc: "Conéctate con personas de alto rendimiento que comparten tus mismos objetivos",
+      form_title: "Asegura tu Lugar Ahora",
+      form_button: "Registrarme Ahora",
+      trust_message: "Tu información está segura y nunca será compartida",
+      testimonial_1: "\"Este programa cambió completamente mi perspectiva profesional. Los resultados superaron todas mis expectativas.\"",
+      testimonial_2: "\"Una experiencia transformadora. Las herramientas y estrategias son prácticas y aplicables desde el día uno.\"",
+      footer_copyright: "© 2024 Nuevo Programa. Todos los derechos reservados.",
+      background_color: "#000000",
+      surface_color: "#ffffff",
+      text_color: "#1f2937",
+      primary_action_color: "#0066ff",
+      secondary_action_color: "#6b7280",
+      font_family: "Inter",
+      font_size: 16
+    };
+
+    const dataHandler = {
+      onDataChanged(data) {
+        // No necesitamos mostrar datos en una landing de lista de espera
+      }
+    };
+
+    async function initializeApp() {
+      if (window.dataSdk) {
+        const initResult = await window.dataSdk.init(dataHandler);
+        if (!initResult.isOk) {
+          console.error("Error al inicializar Data SDK");
+        }
+      }
+
+      if (window.elementSdk) {
+        await window.elementSdk.init({
+          defaultConfig: defaultConfig,
+          onConfigChange: async (config) => {
+            const heroTitle = document.getElementById('hero-title');
+            const heroSubtitle = document.getElementById('hero-subtitle');
+            const heroCta = document.getElementById('hero-cta');
+            const benefit1Title = document.getElementById('benefit-1-title');
+            const benefit1Desc = document.getElementById('benefit-1-desc');
+            const benefit2Title = document.getElementById('benefit-2-title');
+            const benefit2Desc = document.getElementById('benefit-2-desc');
+            const benefit3Title = document.getElementById('benefit-3-title');
+            const benefit3Desc = document.getElementById('benefit-3-desc');
+            const formTitle = document.getElementById('form-title');
+            const submitBtn = document.getElementById('submit-btn');
+            const trustMessage = document.getElementById('trust-message');
+            const testimonial1 = document.getElementById('testimonial-1');
+            const testimonial2 = document.getElementById('testimonial-2');
+            const footerCopyright = document.getElementById('footer-copyright');
+
+            if (heroTitle) heroTitle.textContent = config.hero_title || defaultConfig.hero_title;
+            if (heroSubtitle) heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+            if (heroCta) heroCta.textContent = config.hero_button || defaultConfig.hero_button;
+            if (benefit1Title) benefit1Title.textContent = config.benefit_1_title || defaultConfig.benefit_1_title;
+            if (benefit1Desc) benefit1Desc.textContent = config.benefit_1_desc || defaultConfig.benefit_1_desc;
+            if (benefit2Title) benefit2Title.textContent = config.benefit_2_title || defaultConfig.benefit_2_title;
+            if (benefit2Desc) benefit2Desc.textContent = config.benefit_2_desc || defaultConfig.benefit_2_desc;
+            if (benefit3Title) benefit3Title.textContent = config.benefit_3_title || defaultConfig.benefit_3_title;
+            if (benefit3Desc) benefit3Desc.textContent = config.benefit_3_desc || defaultConfig.benefit_3_desc;
+            if (formTitle) formTitle.textContent = config.form_title || defaultConfig.form_title;
+            if (submitBtn) submitBtn.textContent = config.form_button || defaultConfig.form_button;
+            if (trustMessage) trustMessage.textContent = config.trust_message || defaultConfig.trust_message;
+            if (testimonial1) testimonial1.textContent = config.testimonial_1 || defaultConfig.testimonial_1;
+            if (testimonial2) testimonial2.textContent = config.testimonial_2 || defaultConfig.testimonial_2;
+            if (footerCopyright) footerCopyright.textContent = config.footer_copyright || defaultConfig.footer_copyright;
+
+            const customFont = config.font_family || defaultConfig.font_family;
+            const baseFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+            document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+            const baseSize = config.font_size || defaultConfig.font_size;
+            if (heroTitle) heroTitle.style.fontSize = `${baseSize * 3.5}px`;
+            if (heroSubtitle) heroSubtitle.style.fontSize = `${baseSize * 1.5}px`;
+            if (formTitle) formTitle.style.fontSize = `${baseSize * 2.625}px`;
+            document.body.style.fontSize = `${baseSize}px`;
+
+            const backgroundColor = config.background_color || defaultConfig.background_color;
+            const surfaceColor = config.surface_color || defaultConfig.surface_color;
+            const textColor = config.text_color || defaultConfig.text_color;
+            const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
+            const secondaryActionColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+            const heroSection = document.querySelector('.gradient-bg');
+            if (heroSection) {
+              heroSection.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, #1a1a2e 100%)`;
+            }
+
+            const cardBenefits = document.querySelectorAll('.card-benefit');
+            cardBenefits.forEach(card => {
+              card.style.background = surfaceColor;
+            });
+
+            const iconCircles = document.querySelectorAll('.icon-circle');
+            iconCircles.forEach(circle => {
+              circle.style.background = primaryActionColor;
+            });
+
+            const btnPrimaries = document.querySelectorAll('.btn-primary');
+            btnPrimaries.forEach(btn => {
+              btn.style.background = primaryActionColor;
+            });
+
+            const headings = document.querySelectorAll('h1, h2, h3, h4');
+            headings.forEach(heading => {
+              if (!heading.closest('.gradient-bg')) {
+                heading.style.color = textColor;
+              }
+            });
+          },
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.background_color || defaultConfig.background_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.background_color = value;
+                    window.elementSdk.setConfig({ background_color: value });
+                  }
+                }
+              },
+              {
+                get: () => config.surface_color || defaultConfig.surface_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.surface_color = value;
+                    window.elementSdk.setConfig({ surface_color: value });
+                  }
+                }
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.text_color = value;
+                    window.elementSdk.setConfig({ text_color: value });
+                  }
+                }
+              },
+              {
+                get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.primary_action_color = value;
+                    window.elementSdk.setConfig({ primary_action_color: value });
+                  }
+                }
+              },
+              {
+                get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                set: (value) => {
+                  if (window.elementSdk) {
+                    window.elementSdk.config.secondary_action_color = value;
+                    window.elementSdk.setConfig({ secondary_action_color: value });
+                  }
+                }
+              }
+            ],
+            borderables: [],
+            fontEditable: {
+              get: () => config.font_family || defaultConfig.font_family,
+              set: (value) => {
+                if (window.elementSdk) {
+                  window.elementSdk.config.font_family = value;
+                  window.elementSdk.setConfig({ font_family: value });
+                }
+              }
+            },
+            fontSizeable: {
+              get: () => config.font_size || defaultConfig.font_size,
+              set: (value) => {
+                if (window.elementSdk) {
+                  window.elementSdk.config.font_size = value;
+                  window.elementSdk.setConfig({ font_size: value });
+                }
+              }
+            }
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["hero_title", config.hero_title || defaultConfig.hero_title],
+            ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+            ["hero_button", config.hero_button || defaultConfig.hero_button],
+            ["benefit_1_title", config.benefit_1_title || defaultConfig.benefit_1_title],
+            ["benefit_1_desc", config.benefit_1_desc || defaultConfig.benefit_1_desc],
+            ["benefit_2_title", config.benefit_2_title || defaultConfig.benefit_2_title],
+            ["benefit_2_desc", config.benefit_2_desc || defaultConfig.benefit_2_desc],
+            ["benefit_3_title", config.benefit_3_title || defaultConfig.benefit_3_title],
+            ["benefit_3_desc", config.benefit_3_desc || defaultConfig.benefit_3_desc],
+            ["form_title", config.form_title || defaultConfig.form_title],
+            ["form_button", config.form_button || defaultConfig.form_button],
+            ["trust_message", config.trust_message || defaultConfig.trust_message],
+            ["testimonial_1", config.testimonial_1 || defaultConfig.testimonial_1],
+            ["testimonial_2", config.testimonial_2 || defaultConfig.testimonial_2],
+            ["footer_copyright", config.footer_copyright || defaultConfig.footer_copyright]
+          ])
+        });
+      }
+    }
+
+    function scrollToForm() {
+      const formSection = document.getElementById('form-section');
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
+      const form = document.getElementById('waitlist-form');
+      
+      successMessage.style.display = 'none';
+      errorMessage.style.display = 'none';
+      
+      const nombre = document.getElementById('nombre').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const pais = document.getElementById('pais').value;
+      
+      if (!nombre || !email || !pais) {
+        errorMessage.style.display = 'block';
+        setTimeout(() => {
+          errorMessage.style.display = 'none';
+        }, 4000);
+        return;
+      }
+      
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.innerHTML = '<span class="loading-spinner"></span>Enviando...';
+      
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create({
+          nombre: nombre,
+          email: email,
+          pais: pais,
+          fecha_registro: new Date().toISOString()
+        });
+        
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        
+        if (result.isOk) {
+          successMessage.style.display = 'block';
+          form.reset();
+          setTimeout(() => {
+            successMessage.style.display = 'none';
+          }, 5000);
+        } else {
+          errorMessage.textContent = '⚠ Hubo un error al guardar los datos. Intenta nuevamente.';
+          errorMessage.style.display = 'block';
+          setTimeout(() => {
+            errorMessage.style.display = 'none';
+          }, 4000);
+        }
+      }
+    }
+
+    initializeApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a5e5f79738a75f3',t:'MTc2NDM4MDE3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
