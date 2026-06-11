@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Práctico Evaluativo HTML</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+    }
+    main {
+      padding: 20px;
+    }
+    .pregunta {
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #444;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #666;
+      cursor: not-allowed;
+    }
+    .resultado {
+      font-size: 1.2em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo Colegio" height="60">
+    <h1>Práctico Evaluativo de HTML</h1>
+    <p>Escuela Experimental PRoA - Materia: Diseño de Interfaces y Usabilidad</p>
+  </header>
+
+  <main>
+    <form id="quizForm">
+      <!-- Pregunta 1 -->
+      <div class="pregunta">
+        <p>1. La etiqueta &lt;h1&gt; se usa para crear un párrafo.</p>
+        <label><input type="radio" name="q1" value="F"> Falso</label>
+        <label><input type="radio" name="q1" value="V"> Verdadero</label>
+      </div>
+
+      <!-- Pregunta 2 -->
+      <div class="pregunta">
+        <p>2. La etiqueta &lt;br&gt; genera un salto de línea.</p>
+        <label><input type="radio" name="q2" value="V"> Verdadero</label>
+        <label><input type="radio" name="q2" value="F"> Falso</label>
+      </div>
+
+      <!-- Pregunta 3 -->
+      <div class="pregunta">
+        <p>3. Para poner un texto en negrita se usa:</p>
+        <label><input type="radio" name="q3" value="A">&lt;b&gt; o &lt;strong&gt;</label>
+        <label><input type="radio" name="q3" value="B">&lt;i&gt;</label>
+        <label><input type="radio" name="q3" value="C">&lt;em&gt;</label>
+      </div>
+
+      <!-- Pregunta 4 -->
+      <div class="pregunta">
+        <p>4. ¿Cuál etiqueta se usa para insertar una imagen?</p>
+        <label><input type="radio" name="q4" value="A">&lt;img&gt;</label>
+        <label><input type="radio" name="q4" value="B">&lt;image&gt;</label>
+        <label><input type="radio" name="q4" value="C">&lt;picture&gt;</label>
+      </div>
+
+      <!-- Pregunta 5 -->
+      <div class="pregunta">
+        <p>5. ¿Qué atributo indica la ruta del archivo en &lt;img&gt;?</p>
+        <label><input type="radio" name="q5" value="A">href</label>
+        <label><input type="radio" name="q5" value="B">src</label>
+        <label><input type="radio" name="q5" value="C">path</label>
+      </div>
+
+      <!-- Pregunta 6 -->
+      <div class="pregunta">
+        <p>6. Para insertar un video se utiliza:</p>
+        <label><input type="radio" name="q6" value="A">&lt;video&gt;</label>
+        <label><input type="radio" name="q6" value="B">&lt;vid&gt;</label>
+        <label><input type="radio" name="q6" value="C">&lt;media&gt;</label>
+      </div>
+
+      <!-- Pregunta 7 -->
+      <div class="pregunta">
+        <p>7. ¿Cuál es un enlace externo?</p>
+        <label><input type="radio" name="q7" value="A">&lt;a href="#seccion1"&gt;Ir&lt;/a&gt;</label>
+        <label><input type="radio" name="q7" value="B">&lt;a href="https://www.google.com"&gt;Google&lt;/a&gt;</label>
+        <label><input type="radio" name="q7" value="C">&lt;a href="/pagina.html"&gt;Página&lt;/a&gt;</label>
+      </div>
+
+      <!-- Pregunta 8 -->
+      <div class="pregunta">
+        <p>8. Completa la etiqueta para insertar un audio: &lt;audio ______="miCancion.mp3" controls&gt;&lt;/audio&gt;</p>
+        <input type="text" name="q8">
+      </div>
+
+      <!-- Pregunta 9 -->
+      <div class="pregunta">
+        <p>9. Escribe el atributo correcto para un enlace interno hacia “info”: &lt;a href="_____"&gt;Ir&lt;/a&gt;</p>
+        <input type="text" name="q9">
+      </div>
+
+      <!-- Pregunta 10 -->
+      <div class="pregunta">
+        <p>10. ¿Cuál es la estructura básica de una tabla con una fila y dos columnas?</p>
+        <label><input type="radio" name="q10" value="A">&lt;table&gt;&lt;tr&gt;&lt;td&gt;Celda1&lt;/td&gt;&lt;td&gt;Celda2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</label><br>
+        <label><input type="radio" name="q10" value="B">&lt;tab&gt;&lt;row&gt;&lt;col&gt;Celda1&lt;/col&gt;&lt;col&gt;Celda2&lt;/col&gt;&lt;/row&gt;&lt;/tab&gt;</label><br>
+        <label><input type="radio" name="q10" value="C">&lt;table&gt;&lt;td&gt;Celda1&lt;/td&gt;&lt;td&gt;Celda2&lt;/td&gt;&lt;/table&gt;</label>
+      </div>
+
+      <button type="button" id="finalizar">Finalizar</button>
+    </form>
+
+    <div class="resultado" id="resultado"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Escuela PRoA - Dpto Formación Específica</p>
+  </footer>
+
+  <script>
+    const respuestas = {
+      q1: "F",
+      q2: "V",
+      q3: "A",
+      q4: "A",
+      q5: "B",
+      q6: "A",
+      q7: "B",
+      q8: "src",
+      q9: "#info",
+      q10: "A"
+    };
+
+    document.getElementById("finalizar").addEventListener("click", function() {
+      let puntaje = 0;
+      let total = Object.keys(respuestas).length;
+
+      for (let key in respuestas) {
+        let seleccion = document.querySelector(`input[name="${key}"]:checked`);
+        let texto = document.querySelector(`input[name="${key}"]`);
+        if (seleccion && seleccion.value === respuestas[key]) {
+          puntaje++;
+        } else if (texto && texto.value.trim().toLowerCase() === respuestas[key].toLowerCase()) {
+          puntaje++;
+        }
+      }
+
+      let nota = (puntaje / total) * 10;
+      let resultado = document.getElementById("resultado");
+      resultado.textContent = `Tu puntaje es ${nota.toFixed(1)}. ` + 
+        (nota >= 7 ? "¡Aprobado!" : "No aprobado.");
+
+      document.querySelectorAll("input").forEach(i => i.disabled = true);
+      this.disabled = true;
+    });
+  </script>
+</body>
+</html>

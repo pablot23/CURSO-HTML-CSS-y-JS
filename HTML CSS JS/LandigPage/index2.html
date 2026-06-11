@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page Profesional Responsive</title>
+  <style>
+    :root {
+      --color-bg-light: #ffffff;
+      --color-text-light: #222222;
+      --color-accent: #f9c300;
+      --color-bg-dark: #121212;
+      --color-text-dark: #f5f5f5;
+      --font-main: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-main);
+      margin: 0;
+      background-color: var(--color-bg-light);
+      color: var(--color-text-light);
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #ddd;
+      flex-wrap: wrap;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    nav a {
+      margin: 0.5rem 1rem;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 500;
+    }
+
+    .cta-btn {
+      background-color: var(--color-accent);
+      color: #000;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      background-color: #ffda33;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .benefits, .why-us, .testimonials, .plans, .faq, .contact {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .benefits div, .why-us div {
+      display: inline-block;
+      width: 45%;
+      margin: 2%;
+      vertical-align: top;
+    }
+
+    @media (max-width: 768px) {
+      .benefits div, .why-us div {
+        display: block;
+        width: 100%;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .plans table, .plans th, .plans td {
+        display: block;
+        width: 100%;
+      }
+
+      .plans th, .plans td {
+        border: none;
+        padding: 1rem 0;
+      }
+
+      form {
+        width: 100%;
+        padding: 0 1rem;
+      }
+
+      input, textarea {
+        width: 100%;
+      }
+    }
+
+    .plans table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+
+    .plans th, .plans td {
+      border: 1px solid #ccc;
+      padding: 1rem;
+    }
+
+    .faq details {
+      margin: 1rem 0;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Tu Negocio Online</h2>
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#planes">Planes</a>
+    </nav>
+    <button class="cta-btn">Solicita tu Propuesta</button>
+  </header>
+
+  <section class="hero">
+    <h1>Transforma tu Negocio en Clientes Reales</h1>
+    <p>Atrae más clientes y aumenta tus ventas con una presencia digital efectiva.</p>
+    <button class="cta-btn">Solicita tu Propuesta Hoy</button>
+  </section>
+
+  <section class="benefits">
+    <h2>Beneficios Principales</h2>
+    <div><h3>Más Clientes</h3><p>Tu negocio visible para quienes buscan lo que ofreces.</p></div>
+    <div><h3>Mayor Confianza</h3><p>Diseño profesional que transmite seguridad.</p></div>
+    <div><h3>Ventas Crecientes</h3><p>Estrategias digitales enfocadas en resultados.</p></div>
+    <div><h3>Simplicidad</h3><p>Página clara, sin distracciones.</p></div>
+  </section>
+
+  <section class="why-us">
+    <h2>¿Por Qué Elegirnos?</h2>
+    <div><h3>Experiencia</h3><p>Más de 15 años creando páginas que convierten.</p></div>
+    <div><h3>Profesionalismo</h3><p>Equipo experto en diseño, UX y marketing.</p></div>
+    <div><h3>Resultados</h3><p>Casos de éxito comprobados.</p></div>
+  </section>
+
+  <section class="testimonials" id="testimonios">
+    <h2>Testimonios</h2>
+    <p>"Duplicamos nuestras consultas en menos de 3 meses." — María</p>
+    <p>"El diseño transmite confianza y profesionalismo." — Carlos</p>
+    <p>"Aumentaron nuestras ventas online." — Laura</p>
+  </section>
+
+  <section class="plans" id="planes">
+    <h2>Planes y Paquetes</h2>
+    <table>
+      <tr><th>Plan Básico</th><th>Plan Profesional</th><th>Plan Premium</th></tr>
+      <tr><td>Página informativa</td><td>Página optimizada para ventas</td><td>Estrategia digital completa</td></tr>
+      <tr><td>$</td><td>$$</td><td>$$$</td></tr>
+    </table>
+  </section>
+
+  <section class="faq">
+    <h2>Preguntas Frecuentes</h2>
+    <details><summary>¿Qué necesito para empezar?</summary><p>Solo tu idea y objetivos, nosotros nos encargamos del resto.</p></details>
+    <details><summary>¿Cuánto tarda el proceso?</summary><p>Entre 2 y 4 semanas según el plan elegido.</p></details>
+    <details><summary>¿Qué pasa si no tengo experiencia digital?</summary><p>Te guiamos paso a paso.</p></details>
+    <details><summary>¿Incluye mantenimiento?</summary><p>Sí, ofrecemos soporte y actualizaciones.</p></details>
+  </section>
+
+  <section class="contact">
+    <h2>Da el Primer Paso Hacia Más Clientes</h2>
+    <form>
+      <input type="text" placeholder="Nombre" required>
+      <input type="email" placeholder="Email" required>
+      <input type="tel" placeholder="Teléfono">
+      <textarea placeholder="Mensaje" rows="4"></textarea>
+      <button class="cta-btn">Solicitar Propuesta Personalizada</button>
+    </form>
+  </section>
+
+  <footer>
+    © 2026 Tu Negocio Online — Todos los derechos reservados.
+  </footer>
+</body>
+</html>
