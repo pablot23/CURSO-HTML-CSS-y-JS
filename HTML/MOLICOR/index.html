@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitio en Mantenimiento</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            /* overflow: hidden; no te muestra la barra de scraoll vertical*/
+            overflow-y: auto; /* permitir scroll vertical */
+        }
+
+        .container {
+            max-width: 550px;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 50%;
+            color: #6366f1;
+        }
+
+        .icon-container::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #6366f1;
+            opacity: 0.4;
+            animation: pulse 2s infinite ease-out;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+        }
+
+        .footer {
+            font-size: 0.85rem;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            p { font-size: 1rem; }
+            .container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!--<div class="badge">Próximamente</div>  -->
+        
+        <div class="icon-container">
+            <!-- Icono SVG moderno de tuerca/herramienta -->
+            <svg xmlns="http://w3.org" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+        </div>
+
+        <h1>Estamos mejorando el sitio</h1>
+        <p>Disculpe las molestias. En este momento estamos realizando tareas de mantenimiento para ofrecerte una mejor experiencia. Volvemos muy pronto.</p>
+        
+        <div>
+            <!--imagen de mantenimiento o ilustración opcional aquí -->
+            <img src="Imagentrigo3b.png" alt="Logo MoliCor" style="max-width: 100%; margin: 20px 0; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.25);">
+        </div>
+        
+
+        <div class="footer">
+            &copy; Benjamín Franklin S/N° entre Alvear y Güemes - Parque industrial Leonardo Da Vinci - CP (5850) - Río Tercero - Córdoba - Argentina
+            <br>
+Tel. (54 03571) - 645 645 - 
+e-mail: <a href="mailto:info@molicor.com.ar" style="color:#10b981; text-decoration:none;">info@molicor.com.ar</a> 
+<br>
+2026 Molicor. Todos los derechos reservados.
+        </div>
+    </div>
+
+</body>
+</html>
+
